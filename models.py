@@ -43,6 +43,17 @@ class Actors(db.Model):
     def update(self):
         db.session.commit()
 
+    def format(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'age': self.age,
+            'gender': self.gender
+        }
+
+    def __repr__(self):
+        return self.format()
+
 
 class Movies(db.Model):
     id = Column(Integer().with_variant(Integer, "sqlite"), primary_key=True)
@@ -59,3 +70,13 @@ class Movies(db.Model):
 
     def update(self):
         db.session.commit()
+
+    def format(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'release_date': self.release_date
+        }
+
+    def __repr__(self):
+        return self.format()
