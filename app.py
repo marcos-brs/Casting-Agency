@@ -11,11 +11,22 @@ def create_app(test_config=None):
     @app.route('/actors', methods=['GET'])
     def list_actors():
         actors = Actors.query.all()
-        formatted_actors = [ actor.format() for actor in actors ]
+        formatted_actors = [actor.format() for actor in actors]
 
         return jsonify({
             'success': True,
             'actors': formatted_actors
+        })
+
+    @app.route('/movies', methods=['GET'])
+    def list_movies():
+        movies = Movies.query.all()
+
+        formatted_movies = [movie.format() for movie in movies]
+
+        return jsonify({
+            'success': True,
+            'movies': formatted_movies
         })
 
     return app
