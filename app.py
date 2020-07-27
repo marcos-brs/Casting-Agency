@@ -87,6 +87,39 @@ def create_app(test_config=None):
             'created': new_movie.id
         })
 
+    @app.route('/actors/<int:actor_id>', methods=['PATCH'])
+    def update_actor(actor_id):
+        try:
+            body = request.get_json()
+
+            name = body.get('name')
+            age = body.get('age')
+            gender = body.get('gender')
+
+            actor = Actors.query.get(actor_id)
+
+            if name:
+                actor.name = name
+
+            if age:
+                print('has age')
+                actor.age = age
+
+            if gender:
+                if gender != "female" and gender != "male":
+                    abort(422)
+                actor.gender = gender
+
+            actor.update()
+
+        except:
+            abort(422)
+
+        return jsonify({
+            'success': True,
+            'updated': actor_id
+        })
+
     return app
 
 
