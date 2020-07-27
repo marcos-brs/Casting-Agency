@@ -52,7 +52,7 @@ class Actors(db.Model):
         }
 
     def __repr__(self):
-        return self.format()
+        return json.dumps(self.format())
 
 
 class Movies(db.Model):

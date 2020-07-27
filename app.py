@@ -1,6 +1,6 @@
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
-from models import setup_db, Actors
+from models import setup_db, Actors, Movies
 
 
 def create_app(test_config=None):
@@ -11,10 +11,11 @@ def create_app(test_config=None):
     @app.route('/actors', methods=['GET'])
     def list_actors():
         actors = Actors.query.all()
+        formatted_actors = [ actor.format() for actor in actors ]
 
         return jsonify({
             'success': True,
-            'actors': actors
+            'actors': formatted_actors
         })
 
     return app
