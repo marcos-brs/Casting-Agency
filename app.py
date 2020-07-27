@@ -60,6 +60,33 @@ def create_app(test_config=None):
             'created': new_actor.id
         })
 
+    @app.route('/movies', methods=['POST'])
+    def create_movie():
+        body = request.get_json()
+
+        if body is None:
+            abort(422)
+
+        required_params = ['title', 'release_date']
+
+        for param in required_params:
+            if param not in body:
+                abort(422)
+
+        title = body.get('title')
+        release_date = body.get('release_date')
+
+        try:
+            new_movie = Movies(title=title, release_date=release_date)
+            new_movie.insert()
+        except:
+            abort(422)
+
+        return jsonify({
+            'success': True,
+            'created': new_movie.id
+        })
+
     return app
 
 
