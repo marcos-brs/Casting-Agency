@@ -119,6 +119,32 @@ def create_app(test_config=None):
             'updated': actor_id
         })
 
+    @app.route('/movies/<int:movie_id>', methods=['PATCH'])
+    def update_movie(movie_id):
+        try:
+            body = request.get_json()
+
+            title = body.get('title')
+            release_date = body.get('release_date')
+
+            movie = Movies.query.get(movie_id)
+
+            if title:
+                movie.title = title
+
+            if release_date:
+                movie.release_date = release_date
+
+            movie.update()
+
+        except:
+            abort(422)
+
+        return jsonify({
+            'success': True,
+            'updated': movie_id
+        })
+
     return app
 
 
