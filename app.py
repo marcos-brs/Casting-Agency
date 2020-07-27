@@ -102,7 +102,6 @@ def create_app(test_config=None):
                 actor.name = name
 
             if age:
-                print('has age')
                 actor.age = age
 
             if gender:
