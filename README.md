@@ -4,6 +4,8 @@ Here I had the chance to use all my knowledge acquired during the nanodegree to 
 
 This project is a Casting Agency and have two entities: actors and movies. It is possible to Create, Read, Update and Delete (CRUD) both the entities, as long as you have the permissions.
 
+**Application URL to Heroku**: https://casting-agency-zerocoolbr.herokuapp.com/
+
 ### How setup Auth0
 
 1. Create a new Auth0 Account
