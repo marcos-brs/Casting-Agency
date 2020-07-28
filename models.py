@@ -2,6 +2,7 @@ import os
 from sqlalchemy import Column, String, Integer, Enum, DateTime
 from flask_sqlalchemy import SQLAlchemy
 import json
+import os
 
 database_user = "postgres"
 database_password = "docker"
@@ -15,7 +16,7 @@ db = SQLAlchemy()
 
 
 def setup_db(app, database_path=database_uri):
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL')
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
