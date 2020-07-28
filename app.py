@@ -145,6 +145,19 @@ def create_app(test_config=None):
             'updated': movie_id
         })
 
+    @app.route('/actors/<int:actor_id>', methods=['DELETE'])
+    def delete_actor(actor_id):
+        try:
+            actor = Actors.query.get(actor_id)
+            actor.delete()
+        except:
+            abort(422)
+
+        return jsonify({
+            'success': True,
+            'deleted': actor_id
+        })
+
     return app
 
 
