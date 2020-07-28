@@ -109,6 +109,28 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(data['code'], 'unauthorized')
         self.assertEqual(data['description'], 'Permission not found.')
 
+    def test_assistant_delete_actors(self):
+        headers = {
+            'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
+        }
+        res = self.client().delete('/actors/1', headers=headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['code'], 'unauthorized')
+        self.assertEqual(data['description'], 'Permission not found.')
+
+    def test_assistant_delete_movies(self):
+        headers = {
+            'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
+        }
+        res = self.client().delete('/movies/1', headers=headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['code'], 'unauthorized')
+        self.assertEqual(data['description'], 'Permission not found.')
+
 
 if __name__ == '__main__':
     unittest.main()
