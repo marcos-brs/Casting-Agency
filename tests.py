@@ -32,11 +32,9 @@ class MyTestCase(unittest.TestCase):
         with self.app.app_context():
             self.db = SQLAlchemy()
             self.db.init_app(self.app)
-            # create all tables
             self.db.create_all()
 
     def tearDown(self):
-        """Executed after reach test"""
         pass
 
     """
@@ -45,91 +43,91 @@ class MyTestCase(unittest.TestCase):
 
     # ROLE: Casting Assistant
 
-    def test_assistant_get_actors(self):
-        headers = {
-            'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
-        }
-        res = self.client().get('/actors', headers=headers)
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-
-    def test_assistant_get_movies(self):
-        headers = {
-            'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
-        }
-        res = self.client().get('/movies', headers=headers)
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-
-    def test_assistant_post_actors(self):
-        headers = {
-            'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
-        }
-        res = self.client().post('/actors', headers=headers)
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 401)
-        self.assertEqual(data['code'], 'unauthorized')
-        self.assertEqual(data['description'], 'Permission not found.')
-
-    def test_assistant_post_movies(self):
-        headers = {
-            'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
-        }
-        res = self.client().post('/movies', headers=headers)
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 401)
-        self.assertEqual(data['code'], 'unauthorized')
-        self.assertEqual(data['description'], 'Permission not found.')
-
-    def test_assistant_patch_actors(self):
-        headers = {
-            'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
-        }
-        res = self.client().patch('/actors/1', headers=headers)
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 401)
-        self.assertEqual(data['code'], 'unauthorized')
-        self.assertEqual(data['description'], 'Permission not found.')
-
-    def test_assistant_patch_movies(self):
-        headers = {
-            'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
-        }
-        res = self.client().patch('/movies/1', headers=headers)
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 401)
-        self.assertEqual(data['code'], 'unauthorized')
-        self.assertEqual(data['description'], 'Permission not found.')
-
-    def test_assistant_delete_actors(self):
-        headers = {
-            'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
-        }
-        res = self.client().delete('/actors/1', headers=headers)
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 401)
-        self.assertEqual(data['code'], 'unauthorized')
-        self.assertEqual(data['description'], 'Permission not found.')
-
-    def test_assistant_delete_movies(self):
-        headers = {
-            'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
-        }
-        res = self.client().delete('/movies/1', headers=headers)
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 401)
-        self.assertEqual(data['code'], 'unauthorized')
-        self.assertEqual(data['description'], 'Permission not found.')
+    # def test_assistant_get_actors(self):
+    #     headers = {
+    #         'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
+    #     }
+    #     res = self.client().get('/actors', headers=headers)
+    #     data = json.loads(res.data)
+    #
+    #     self.assertEqual(res.status_code, 200)
+    #     self.assertEqual(data['success'], True)
+    #
+    # def test_assistant_get_movies(self):
+    #     headers = {
+    #         'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
+    #     }
+    #     res = self.client().get('/movies', headers=headers)
+    #     data = json.loads(res.data)
+    #
+    #     self.assertEqual(res.status_code, 200)
+    #     self.assertEqual(data['success'], True)
+    #
+    # def test_assistant_post_actors(self):
+    #     headers = {
+    #         'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
+    #     }
+    #     res = self.client().post('/actors', headers=headers)
+    #     data = json.loads(res.data)
+    #
+    #     self.assertEqual(res.status_code, 401)
+    #     self.assertEqual(data['code'], 'unauthorized')
+    #     self.assertEqual(data['description'], 'Permission not found.')
+    #
+    # def test_assistant_post_movies(self):
+    #     headers = {
+    #         'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
+    #     }
+    #     res = self.client().post('/movies', headers=headers)
+    #     data = json.loads(res.data)
+    #
+    #     self.assertEqual(res.status_code, 401)
+    #     self.assertEqual(data['code'], 'unauthorized')
+    #     self.assertEqual(data['description'], 'Permission not found.')
+    #
+    # def test_assistant_patch_actors(self):
+    #     headers = {
+    #         'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
+    #     }
+    #     res = self.client().patch('/actors/1', headers=headers)
+    #     data = json.loads(res.data)
+    #
+    #     self.assertEqual(res.status_code, 401)
+    #     self.assertEqual(data['code'], 'unauthorized')
+    #     self.assertEqual(data['description'], 'Permission not found.')
+    #
+    # def test_assistant_patch_movies(self):
+    #     headers = {
+    #         'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
+    #     }
+    #     res = self.client().patch('/movies/1', headers=headers)
+    #     data = json.loads(res.data)
+    #
+    #     self.assertEqual(res.status_code, 401)
+    #     self.assertEqual(data['code'], 'unauthorized')
+    #     self.assertEqual(data['description'], 'Permission not found.')
+    #
+    # def test_assistant_delete_actors(self):
+    #     headers = {
+    #         'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
+    #     }
+    #     res = self.client().delete('/actors/1', headers=headers)
+    #     data = json.loads(res.data)
+    #
+    #     self.assertEqual(res.status_code, 401)
+    #     self.assertEqual(data['code'], 'unauthorized')
+    #     self.assertEqual(data['description'], 'Permission not found.')
+    #
+    # def test_assistant_delete_movies(self):
+    #     headers = {
+    #         'Authorization': 'Bearer {}'.format(TOKEN_ASSISTANT)
+    #     }
+    #     res = self.client().delete('/movies/1', headers=headers)
+    #     data = json.loads(res.data)
+    #
+    #     self.assertEqual(res.status_code, 401)
+    #     self.assertEqual(data['code'], 'unauthorized')
+    #     self.assertEqual(data['description'], 'Permission not found.')
 
     # ROLE: Casting Director
 
@@ -193,7 +191,6 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(data['updated'])
 
     def test_director_patch_movies(self):
-
         test_movie = Movies(title='Udacity - the movie', release_date='2020-07-28T12:56:36+00:00')
         test_movie.insert()
 
@@ -209,11 +206,11 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(data['updated'])
 
-    def test_director_patch_actor_that_does_not_exist(self):
+    def test_director_patch_actors_that_does_not_exist(self):
         headers = {
             'Authorization': 'Bearer {}'.format(TOKEN_DIRECTOR)
         }
-        res = self.client().patch('/actor/666', headers=headers)
+        res = self.client().patch('/actors/666', headers=headers)
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
@@ -226,6 +223,36 @@ class MyTestCase(unittest.TestCase):
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
+
+    def test_director_delete_actors(self):
+        headers = {
+            'Authorization': 'Bearer {}'.format(TOKEN_DIRECTOR)
+        }
+        res = self.client().delete('/actors/1', headers=headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['deleted'], 1)
+
+    def test_director_delete_actors_that_does_not_exist(self):
+        headers = {
+            'Authorization': 'Bearer {}'.format(TOKEN_DIRECTOR)
+        }
+        res = self.client().delete('/actors/666', headers=headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 422)
+
+    def test_director_delete_movies(self):
+        headers = {
+            'Authorization': 'Bearer {}'.format(TOKEN_DIRECTOR)
+        }
+        res = self.client().delete('/movies/1', headers=headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['code'], 'unauthorized')
+        self.assertEqual(data['description'], 'Permission not found.')
 
 
 if __name__ == '__main__':
