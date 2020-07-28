@@ -36,6 +36,9 @@ class MyTestCase(unittest.TestCase):
     Write at least one test for each test for successful operation and for expected errors.
     """
 
+    def test_example(self):
+        self.assertEqual(1, 1)
+
 
 if __name__ == '__main__':
     unittest.main()
