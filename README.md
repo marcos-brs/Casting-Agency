@@ -104,7 +104,19 @@ After update the database config on `models.py` file and the Auth0 config on `au
      ```bash
     python tests.py
    ```
-   
+
+
+### Host this applications on heroku
+
+1. Create an account on heroku
+2. Install the [Heroku CLI](https://devcenter.heroku.com/categories/command-line)
+3. Login with your account on Heroku CLI `heroku login`
+4. Create a new APP `heroku create name_of_your_app`
+5. Add git remote for Heroku to local repository `git remote add heroku heroku_git_url`
+6. Create a postgres db `heroku addons:create heroku-postgresql:hobby-dev --app name_of_your_application`
+7. Check the local environments variables `heroku config --app name_of_your_application`
+8. Send the code to heroku `git push heroku master`
+9. Run the migrations `heroku run python manage.py db upgrade --app name_of_your_application`
    
 ### REST Endpoints
 
