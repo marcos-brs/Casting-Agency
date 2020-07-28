@@ -4,7 +4,7 @@ import unittest
 from flask_sqlalchemy import SQLAlchemy
 
 from app import create_app
-from models import setup_db
+from models import setup_db, Movies
 
 TOKEN_ASSISTANT = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImYyQWhKd2c1aFd5X1hhMlptT1ZPaSJ9' \
                   '.eyJpc3MiOiJodHRwczovL2NvZmZlZS1zaG9wLXplcm9jb29sYnIudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmMWVjMjZlZDkzYzEwMDAzZGNiMDNmMSIsImF1ZCI6ImNhcHN0b25lLWRldiIsImlhdCI6MTU5NTkzODQ0MiwiZXhwIjoxNTk2MDI0ODQyLCJhenAiOiJUMXJ2aE1QMkJwQmlkVU1qNjJ2S05oWjRQZW1IT0NIRiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiXX0.kWw6MCEFH0E_E8hTFyfJc12OJvea_6XRHxPitiiCQdJJalF1AXR_z4GE-xyu0hIHzRV8PpgfNSW3_s58BUy1AULfx3Osf3ooYj7-StPG4tnuG0O2GE0AvTclHdhpY1qy8yBkpM7YFLwK1QBAYTdTpvW_74aTzCM6VxF2cEi8VSZzOVAEDJU9fuKiDqEy9K_00Oydrpv-R9tbuFdxlTN3slX7-IQoIgrEQmz2IlpJmReI02NiOMEEA-j9_Q79wcDJ4gqEkEQTyr8Y-8wjlZovXaTkhZn-u7ANCDhfBz_dPwANByJN25yPHOYOkZxfuXpA59TZ2ckS468Lr2y8RPSZkw '
@@ -178,6 +178,54 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 401)
         self.assertEqual(data['code'], 'unauthorized')
         self.assertEqual(data['description'], 'Permission not found.')
+
+    def test_director_patch_actors(self):
+        headers = {
+            'Authorization': 'Bearer {}'.format(TOKEN_DIRECTOR)
+        }
+        res = self.client().patch('/actors/1', headers=headers, json={
+            "title": "Marcos BR Santana"
+        })
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['updated'])
+
+    def test_director_patch_movies(self):
+
+        test_movie = Movies(title='Udacity - the movie', release_date='2020-07-28T12:56:36+00:00')
+        test_movie.insert()
+
+        headers = {
+            'Authorization': 'Bearer {}'.format(TOKEN_DIRECTOR)
+        }
+        res = self.client().patch('/movies/1', headers=headers, json={
+            "title": "Marcos BR Santana"
+        })
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['updated'])
+
+    def test_director_patch_actor_that_does_not_exist(self):
+        headers = {
+            'Authorization': 'Bearer {}'.format(TOKEN_DIRECTOR)
+        }
+        res = self.client().patch('/actor/666', headers=headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 422)
+
+    def test_director_patch_movies_that_does_not_exist(self):
+        headers = {
+            'Authorization': 'Bearer {}'.format(TOKEN_DIRECTOR)
+        }
+        res = self.client().patch('/movies/666', headers=headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 422)
 
 
 if __name__ == '__main__':
