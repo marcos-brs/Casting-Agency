@@ -131,6 +131,28 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(data['code'], 'unauthorized')
         self.assertEqual(data['description'], 'Permission not found.')
 
+    # ROLE: Casting Director
+
+    def test_director_get_actors(self):
+        headers = {
+            'Authorization': 'Bearer {}'.format(TOKEN_DIRECTOR)
+        }
+        res = self.client().get('/actors', headers=headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+
+    def test_director_get_movies(self):
+        headers = {
+            'Authorization': 'Bearer {}'.format(TOKEN_DIRECTOR)
+        }
+        res = self.client().get('/movies', headers=headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+
 
 if __name__ == '__main__':
     unittest.main()
